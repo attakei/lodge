@@ -1,6 +1,15 @@
 class CustomDevise::RegistrationsController < Devise::RegistrationsController
   before_action :customize_sign_up_params, only: [:create, :update]
 
+  def new
+    # TODO: あとで細々整理する
+    if Rails.application.config.omniauth_only
+      render text: "Oauth以外の認証は受け付けていません", status: 400
+    else
+      super
+    end
+  end
+
   def destroy
     @user.lock_access!
     redirect_to root_path
