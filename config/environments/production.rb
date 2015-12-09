@@ -88,7 +88,10 @@ Rails.application.configure do
   # 以下は主にユーザ登録やパスワード忘れの際のメール送信で利用する設定です。
 
   # メールに記載する本サービスのURL
-  config.action_mailer.default_url_options = { :host => ENV['LODGE_DOMAIN'] }
+  config.action_mailer.default_url_options = { 
+    :host => ENV['LODGE_DOMAIN'],
+    :protocol => ENV['LODGE_PROTOCOL'].present? ? ENV['LODGE_PROTOCOL'] : 'http'
+  }
 
   # SMTPの指定
   config.action_mailer.delivery_method = ENV["DELIVERY_METHOD"].to_sym
